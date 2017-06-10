@@ -16,10 +16,12 @@ import javax.swing.JOptionPane;
 
 import rbadia.voidspace.model.Floor;
 import rbadia.voidspace.model.MegaMan;
+import rbadia.voidspace.model.Platform;
 
 /**
  * Handles user input events.
  */
+
 public class InputHandler implements KeyListener{
 	private boolean leftIsPressed;
 	private boolean rightIsPressed;
@@ -30,6 +32,7 @@ public class InputHandler implements KeyListener{
 	private boolean eIsPressed;
 	private boolean qIsPressed;
 	private boolean mIsPressed;
+	private boolean nIsPressed;
 
 	private long lastBulletTime;
 	private long lastExchangeTime;
@@ -68,7 +71,7 @@ public class InputHandler implements KeyListener{
 					gameLogic.fireBullet();
 				}
 			}
-
+			
 			if(eIsPressed){
 				if(status.getAsteroidsDestroyed()>= 1500){
 					long currentTime = System.currentTimeMillis();
@@ -91,6 +94,7 @@ public class InputHandler implements KeyListener{
 						if((currentTime - lastBigBulletTime) > 1000){
 							lastBigBulletTime = currentTime;
 							gameLogic.fireBigBullet();
+							status.setAsteroidsDestroyed(status.getAsteroidsDestroyed()-1000);
 						}
 
 					}
@@ -111,7 +115,10 @@ public class InputHandler implements KeyListener{
 			if(shiftIsPressed){
 				megaMan.setSpeed(megaMan.getDefaultSpeed() * 2 +1);
 			}
-
+			//if(nIsPressed){
+				//if(!status.isGameOver() && !status.isNewMegaMan() && !status.isGameStarting() && !status.isGameWon()){
+					//restructure();
+			//}}
 			if(upIsPressed){
 				long currentTime = System.currentTimeMillis();
 				if((currentTime - lastBigBulletTime) > 570){ //if i<10 (700)
@@ -138,6 +145,8 @@ public class InputHandler implements KeyListener{
 
 
 
+
+	
 
 	/**
 	 * Move the megaMan up
@@ -298,16 +307,25 @@ public class InputHandler implements KeyListener{
 			break;
 
 		case KeyEvent.VK_Q:
-			if(!status.isGameStarted() && !status.isGameOver() && !status.isGameStarting() && !status.isGameWon()){		
+			if(!status.isGameStarted() && !status.isGameOver() && !status.isGameStarting() && !status.isGameWon()){
+			}
+			else if(status.getAsteroidsDestroyed() < 1000){
 			}
 			else{
-				this.qIsPressed= true;
+				this.qIsPressed = true;
 			}
 			break;
 
 		case KeyEvent.VK_M:
 			this.mIsPressed= true;
 			break;
+		
+		case KeyEvent.VK_N:
+			if(!status.isGameStarted() && !status.isGameOver() && !status.isGameStarting() && !status.isGameWon()){		
+			}
+			else{
+				this.nIsPressed= true;
+			}
 		}
 
 
@@ -348,6 +366,10 @@ public class InputHandler implements KeyListener{
 
 		case KeyEvent.VK_M:
 			this.mIsPressed = false;
+			break;
+			
+		case KeyEvent.VK_N:
+			this.nIsPressed = false;
 			break;
 		}
 		e.consume();

@@ -221,7 +221,7 @@ public class GameScreen extends BaseScreen{
 		}
 
 		// draw first asteroid
-		if(!status.isNewAsteroid() && boom <= 2){
+		if(!status.isNewAsteroid() && boom <= 5){
 			// draw the asteroid until it reaches the bottom of the screen
 
 			//LEVEL 1
@@ -235,10 +235,10 @@ public class GameScreen extends BaseScreen{
 			}	
 		}
 
-		else if(!status.isNewAsteroid() && boom > 2){
+		else if(!status.isNewAsteroid() && boom > 5){
 			// draw the asteroid until it reaches the bottom of the screen
 			//LEVEL 2
-			if((asteroid.getX() + asteroid.getAsteroidWidth() >  0)){
+			if((asteroid.getX() + asteroid.getAsteroidWidth() >  0) && (boom <= 5 || boom ==15)){
 				asteroid.translate(-asteroid.getSpeed(), asteroid.getSpeed()/2);
 				graphicsMan.drawAsteroid(asteroid, g2d, this);	
 			}
@@ -293,7 +293,7 @@ public class GameScreen extends BaseScreen{
 			Bullet bullet = bullets.get(i);
 			if(asteroid.intersects(bullet)){
 				// increase asteroids destroyed count
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 100);
+				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
 
 				removeAsteroid(asteroid);
 
@@ -314,7 +314,7 @@ public class GameScreen extends BaseScreen{
 			BigBullet bigBullet = bigBullets.get(i);
 			if(asteroid.intersects(bigBullet)){
 				// increase asteroids destroyed count
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 100);
+				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
 
 				removeAsteroid(asteroid);
 
@@ -342,7 +342,7 @@ public class GameScreen extends BaseScreen{
 		}
 		//
 
-		if(boom == 2)
+		if(boom == 5)
 			restructure();
 
 		status.getAsteroidsDestroyed();
@@ -389,7 +389,7 @@ public class GameScreen extends BaseScreen{
 	}
 
 	protected void drawYouWin() {
-		String youWinStr = "You Pass";
+		String youWinStr = "You Win";
 
 		Font currentFont = biggestFont == null? bigFont : biggestFont;
 		float fontSize = currentFont.getSize2D();
@@ -418,7 +418,7 @@ public class GameScreen extends BaseScreen{
 		g2d.setPaint(Color.YELLOW);
 		g2d.drawString(newGameStr, strX, strY);
 
-		boom=3;	//Change value in order for the next level to start
+		boom=0;	//Change value in order for the next level to start
 
 		//		boomReset();
 		//		healthReset();
@@ -506,6 +506,13 @@ public class GameScreen extends BaseScreen{
 		strX = (this.getWidth() - strWidth)/2;
 		strY = strY + 16;
 		g2d.drawString(exitGameStr, strX, strY);
+		
+		fm = g2d.getFontMetrics();
+		String nextlvlGameStr = "Press <N> to Pass to Next Level.";
+		strWidth = fm.stringWidth(nextlvlGameStr);
+		strX = (this.getWidth() - strWidth)/2;
+		strY = strY + 16;
+		g2d.drawString(nextlvlGameStr, strX, strY);
 	}
 
 	/**
