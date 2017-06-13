@@ -304,7 +304,7 @@ public class GameScreen extends BaseScreen{
 				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
 
 				removeAsteroid(asteroid);
-
+				
 				if(boom != 5 && boom != 15){
 					boom=boom + 1;
 				}
@@ -331,39 +331,37 @@ public class GameScreen extends BaseScreen{
 		}
 
 		// check big bullet-asteroid collisions
-//		for(int i=0; i<bigBullets.size(); i++){
-//			BigBullet bigBullet = bigBullets.get(i);
-//			if(asteroid.intersects(bigBullet)){
-//				// increase asteroids destroyed count
-//				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);  // again for asteroid 2
-//
-//				removeAsteroid(asteroid);
-//				removeAsteroid(asteroid2);
-//
-//
-//				if(boom != 5 && boom != 15){
-//					boom=boom + 1;
-//				}
-//				damage=0;
-//			}
-//		}
-//
+		for(int i=0; i<bigBullets.size(); i++){
+			BigBullet bigBullet = bigBullets.get(i);
+			if(asteroid.intersects(bigBullet)){
+				// increase asteroids destroyed count
+				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);  // again for asteroid 2
+
+				removeAsteroid(asteroid);
+				
+				if(boom != 5 && boom != 15){
+					boom=boom + 1;
+				}
+				damage=0;
+			}
+		}
+
 //		//MM-Asteroid collision
-//		if(asteroid.intersects(megaMan)){
-//			status.setShipsLeft(status.getShipsLeft() - 1);		//check witch asteroid
-//			removeAsteroid(asteroid);
-//			//removeAsteroid(asteroid2);
-//		}
-//
-//		//Asteroid-Floor collision
-//		for(int i=0; i<9; i++){
-//			if(asteroid.intersects(floor[i])){
-//				removeAsteroid(asteroid);
-//				//removeAsteroid(asteroid2);
-//
-//			}
-//		}
-//		
+		if(asteroid.intersects(megaMan)){
+			status.setShipsLeft(status.getShipsLeft() - 1);		//check witch asteroid
+			removeAsteroid(asteroid);
+			
+		}
+
+		//Asteroid-Floor collision
+		for(int i=0; i<9; i++){
+			if(asteroid.intersects(floor[i])){
+				removeAsteroid(asteroid);
+				
+
+			}
+		}
+		
 
 		if(boom == 5)
 			restructure();
@@ -676,7 +674,7 @@ public class GameScreen extends BaseScreen{
 		return true;
 	}
 
-	public void restructure(){
+	public void restructure(){								//Add new level here
 		Platform[] platform = gameLogic.getNumPlatforms();
 		for(int i=0; i<8; i++){
 			if(i<4)	platform[i].setLocation(50+ i*50, getHeight()/2 + 140 - i*40);
@@ -697,6 +695,7 @@ public class GameScreen extends BaseScreen{
 				asteroid.y,
 				asteroid.width,
 				asteroid.height);
+		graphicsMan.drawAsteroidExplosion(asteroidExplosion, g2d, this);
 		asteroid.setLocation(-asteroid.width, -asteroid.height);
 		status.setNewAsteroid(true);
 		lastAsteroidTime = System.currentTimeMillis();
@@ -712,6 +711,7 @@ public class GameScreen extends BaseScreen{
 				asteroid2.y,
 				asteroid2.width,
 				asteroid2.height);
+		graphicsMan.drawAsteroidExplosion(asteroidExplosion, g2d, this);
 		asteroid2.setLocation(-asteroid2.width, -asteroid2.height);
 		status.setNewAsteroid2(true);
 		lastAsteroid2Time = System.currentTimeMillis();
