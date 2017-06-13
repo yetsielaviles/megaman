@@ -40,7 +40,7 @@ public class GameScreen extends BaseScreen{
 
 	//	private long lastShipTime;
 	private long lastAsteroidTime;
-	//	private long lastAsteroid2Time;
+	private long lastAsteroid2Time;
 	//	private long lastBigAsteroidTime;
 
 	private Rectangle asteroidExplosion;
@@ -122,7 +122,7 @@ public class GameScreen extends BaseScreen{
 		List<Bullet> bullets = gameLogic.getBullets();
 		Asteroid asteroid = gameLogic.getAsteroid();
 		List<BigBullet> bigBullets = gameLogic.getBigBullets();
-		//		Asteroid asteroid2 = gameLogic.getAsteroid2();
+				Asteroid asteroid2 = gameLogic.getAsteroid2();
 		//		BigAsteroid bigAsteroid = gameLogic.getBigAsteroid();
 		//		List<BulletBoss> bulletsBoss = gameLogic.getBulletBoss();
 		//		List<BulletBoss2> bulletsBoss2 = gameLogic.getBulletBoss2();		
@@ -159,9 +159,9 @@ public class GameScreen extends BaseScreen{
 			if((currentTime - lastAsteroidTime) < NEW_ASTEROID_DELAY){
 				graphicsMan.drawAsteroidExplosion(asteroidExplosion, g2d, this);
 			}
-			//			if((currentTime - lastShipTime) < NEW_SHIP_DELAY){
-			//				graphicsMan.drawShipExplosion(shipExplosion, g2d, this);
-			//			}
+//						if((currentTime - lastShipTime) < NEW_SHIP_DELAY){
+//							graphicsMan.drawShipExplosion(shipExplosion, g2d, this);
+//						}
 			return;
 		}
 
@@ -176,6 +176,7 @@ public class GameScreen extends BaseScreen{
 				graphicsMan.drawAsteroidExplosion(asteroidExplosion, g2d, this);
 			}
 			return;
+		
 		}
 
 		// the game has not started yet
@@ -191,19 +192,19 @@ public class GameScreen extends BaseScreen{
 		}
 
 
-		//		if(level==1){
+				if(level==1){
 		//draw Platform LV. 1
 		for(int i=0; i<8; i++){
 			graphicsMan.drawPlatform(numPlatforms[i], g2d, this, i);
-			//			}
+						}
 		}
 		//		//draw Platform LV. 2
-		//		else if(level==2){
-		//			for(int i=0; i<8; i++){
-		//			
-		//				graphicsMan.drawPlatform2(numPlatforms[i], g2d, this, i);
-		//			}	
-		//		}
+				else if(level==2){
+					for(int i=0; i<8; i++){
+					
+						graphicsMan.drawPlatform2(numPlatforms[i], g2d, this, i);
+					}	
+				}
 
 		//draw MegaMan
 		if(!status.isNewMegaMan()){
@@ -221,17 +222,24 @@ public class GameScreen extends BaseScreen{
 		}
 
 		// draw first asteroid
-		if(!status.isNewAsteroid() && boom <= 5){
+		if((!status.isNewAsteroid() && boom <= 5)||(!status.isNewAsteroid2() && boom <= 5)){
 			// draw the asteroid until it reaches the bottom of the screen
 
 			//LEVEL 1
-			if((asteroid.getX() + asteroid.getAsteroidWidth() >  0) && (boom <= 5 || boom == 15)){
+			if((asteroid.getX() + asteroid.getAsteroidWidth() >  0) && (boom <= 5 || boom == 15) ){
 				asteroid.translate(-asteroid.getSpeed(), 0);
-				graphicsMan.drawAsteroid(asteroid, g2d, this);	
+				graphicsMan.drawAsteroid(asteroid, g2d, this);
+				
+				if((asteroid2.getX() + asteroid2.getAsteroidWidth() >  0) && (boom <= 5 || boom == 15)) {
+					asteroid2.translate(asteroid2.getSpeed(), 0);
+					graphicsMan.drawAsteroid(asteroid2, g2d, this); }
+				
 			}
 			else if (boom <= 5){
 				asteroid.setLocation(this.getWidth() - asteroid.getAsteroidWidth(),
 						rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));
+				asteroid2.setLocation(0, rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));				
+						
 			}	
 		}
 
@@ -297,7 +305,19 @@ public class GameScreen extends BaseScreen{
 
 				removeAsteroid(asteroid);
 
+				if(boom != 5 && boom != 15){
+					boom=boom + 1;
+				}
+				damage=0;
+				// remove bullet
+				bullets.remove(i);
+				break;
+			}
+			if(asteroid2.intersects(bullet)){
+				// increase asteroids destroyed count
+				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
 
+				removeAsteroid(asteroid2);
 
 				if(boom != 5 && boom != 15){
 					boom=boom + 1;
@@ -307,40 +327,43 @@ public class GameScreen extends BaseScreen{
 				bullets.remove(i);
 				break;
 			}
+			
 		}
 
 		// check big bullet-asteroid collisions
-		for(int i=0; i<bigBullets.size(); i++){
-			BigBullet bigBullet = bigBullets.get(i);
-			if(asteroid.intersects(bigBullet)){
-				// increase asteroids destroyed count
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
-
-				removeAsteroid(asteroid);
-
-
-
-				if(boom != 5 && boom != 15){
-					boom=boom + 1;
-				}
-				damage=0;
-			}
-		}
-
-		//MM-Asteroid collision
-		if(asteroid.intersects(megaMan)){
-			status.setShipsLeft(status.getShipsLeft() - 1);
-			removeAsteroid(asteroid);
-		}
-
-		//Asteroid-Floor collision
-		for(int i=0; i<9; i++){
-			if(asteroid.intersects(floor[i])){
-				removeAsteroid(asteroid);
-
-			}
-		}
-		//
+//		for(int i=0; i<bigBullets.size(); i++){
+//			BigBullet bigBullet = bigBullets.get(i);
+//			if(asteroid.intersects(bigBullet)){
+//				// increase asteroids destroyed count
+//				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);  // again for asteroid 2
+//
+//				removeAsteroid(asteroid);
+//				removeAsteroid(asteroid2);
+//
+//
+//				if(boom != 5 && boom != 15){
+//					boom=boom + 1;
+//				}
+//				damage=0;
+//			}
+//		}
+//
+//		//MM-Asteroid collision
+//		if(asteroid.intersects(megaMan)){
+//			status.setShipsLeft(status.getShipsLeft() - 1);		//check witch asteroid
+//			removeAsteroid(asteroid);
+//			//removeAsteroid(asteroid2);
+//		}
+//
+//		//Asteroid-Floor collision
+//		for(int i=0; i<9; i++){
+//			if(asteroid.intersects(floor[i])){
+//				removeAsteroid(asteroid);
+//				//removeAsteroid(asteroid2);
+//
+//			}
+//		}
+//		
 
 		if(boom == 5)
 			restructure();
@@ -677,6 +700,21 @@ public class GameScreen extends BaseScreen{
 		asteroid.setLocation(-asteroid.width, -asteroid.height);
 		status.setNewAsteroid(true);
 		lastAsteroidTime = System.currentTimeMillis();
+
+		// play asteroid explosion sound
+		soundMan.playAsteroidExplosionSound();
+	}
+	
+	public void removeAsteroid2(Asteroid asteroid2){
+		// "remove" asteroid
+		asteroidExplosion = new Rectangle(
+				asteroid2.x,
+				asteroid2.y,
+				asteroid2.width,
+				asteroid2.height);
+		asteroid2.setLocation(-asteroid2.width, -asteroid2.height);
+		status.setNewAsteroid2(true);
+		lastAsteroid2Time = System.currentTimeMillis();
 
 		// play asteroid explosion sound
 		soundMan.playAsteroidExplosionSound();
