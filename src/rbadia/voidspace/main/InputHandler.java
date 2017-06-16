@@ -115,10 +115,11 @@ public class InputHandler implements KeyListener{
 			if(shiftIsPressed){
 				megaMan.setSpeed(megaMan.getDefaultSpeed() * 2 +1);
 			}
-			//if(nIsPressed){
-				//if(!status.isGameOver() && !status.isNewMegaMan() && !status.isGameStarting() && !status.isGameWon()){
-					//restructure();
-			//}}
+			if(nIsPressed){
+				if(!status.isGameOver() && !status.isNewMegaMan() && !status.isGameStarting() && !status.isGameWon()){
+					status.setLevel(status.getLevel() + 1);
+					
+			}}
 			if(upIsPressed){
 				long currentTime = System.currentTimeMillis();
 				if((currentTime - lastBigBulletTime) > 570){ //if i<10 (700)

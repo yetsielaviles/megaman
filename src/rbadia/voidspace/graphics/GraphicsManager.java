@@ -12,7 +12,7 @@ import rbadia.voidspace.model.Asteroid;
 import rbadia.voidspace.model.BigAsteroid;
 //import rbadia.voidspace.model.BigAsteroid;
 import rbadia.voidspace.model.BigBullet;
-//import rbadia.voidspace.model.Boss;
+import rbadia.voidspace.model.Boss;
 import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Floor;
 //import rbadia.voidspace.model.BulletBoss;
@@ -34,7 +34,7 @@ public class GraphicsManager {
 	private BufferedImage asteroidImg;
 	private BufferedImage asteroidExplosionImg;
 	private BufferedImage megaManExplosionImg;
-	//	private BufferedImage bossImg;
+	private BufferedImage bossImg;
 	//	private BufferedImage bossImg2;
 	private BufferedImage bigAsteroidImg;
 	private BufferedImage bigAsteroidExplosionImg;
@@ -50,7 +50,7 @@ public class GraphicsManager {
 			this.megaFireRImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFireRight.png"));
 			this.floorImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFloor.png"));
 			this.platformImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/platform3.png"));
-			//			this.bossImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/boss1.png"));
+			this.bossImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/boss1.png"));
 			//			this.bossImg2 = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/boss2.png"));
 			this.asteroidImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/asteroid.png"));
 			this.asteroidExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/asteroidExplosion.png"));
@@ -75,6 +75,10 @@ public class GraphicsManager {
 	 * @param observer object to be notified
 	 */
 
+	public void drawBoss (Boss boss, Graphics2D g2d, ImageObserver observer){
+		g2d.drawImage(bossImg, boss.x, boss.y, observer);	
+	}
+	
 	public void drawMegaMan (MegaMan megaMan, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(megaManImg, megaMan.x, megaMan.y, observer);	
 	}
@@ -139,6 +143,9 @@ public class GraphicsManager {
 	 */
 	public void drawMegaManExplosion(Rectangle megaManExplosion, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(megaManExplosionImg, megaManExplosion.x, megaManExplosion.y, observer);
+	}
+	public void drawBossExplosion(Rectangle bossExplosion, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(bigAsteroidExplosionImg, bossExplosion.x, bossExplosion.y, observer);
 	}
 
 	/**

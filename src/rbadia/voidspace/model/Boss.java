@@ -19,7 +19,7 @@ public class Boss extends Rectangle {
 	private int bossWidth2 = 110;
 	private int bossHeight2 = 100;
 	private int speed3 = DEFAULT_SPEED3;
-	
+	private int bossHealth = 2000;
 	/**
 	 * Creates a new ship at the default initial location. 
 	 * @param screen the game screen
@@ -84,6 +84,14 @@ public class Boss extends Rectangle {
 	 */
 	public int getDefaultSpeed(){
 		return DEFAULT_SPEED3;
+	}
+
+	public int getBossHealth() {
+		return bossHealth;
+	}
+
+	public void setBossHealth(int bossHealth) {
+		this.bossHealth = bossHealth;
 	}
 	
 }
