@@ -115,10 +115,12 @@ public class InputHandler implements KeyListener{
 			if(shiftIsPressed){
 				megaMan.setSpeed(megaMan.getDefaultSpeed() * 2 +1);
 			}
-			//if(nIsPressed){
-				//if(!status.isGameOver() && !status.isNewMegaMan() && !status.isGameStarting() && !status.isGameWon()){
-					//restructure();
-			//}}
+			if(nIsPressed){
+				if(!status.isGameOver() && !status.isNewMegaMan() && !status.isGameStarting() && !status.isGameWon()){
+				gameScreen.restructure();
+					
+				}
+			}
 			if(upIsPressed){
 				long currentTime = System.currentTimeMillis();
 				if((currentTime - lastBigBulletTime) > 570){ //if i<10 (700)
@@ -234,6 +236,7 @@ public class InputHandler implements KeyListener{
 				downIsPressed = false;
 				upIsPressed = false;
 				spaceIsPressed = false;
+				nIsPressed = false;
 				stack=0;
 				gameLogic.newGame();
 
@@ -323,6 +326,7 @@ public class InputHandler implements KeyListener{
 		case KeyEvent.VK_N:
 			if(!status.isGameStarted() && !status.isGameOver() && !status.isGameStarting() && !status.isGameWon()){		
 			}
+			
 			else{
 				this.nIsPressed= true;
 			}

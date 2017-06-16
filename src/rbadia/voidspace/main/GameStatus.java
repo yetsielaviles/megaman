@@ -110,13 +110,13 @@ public class GameStatus {
 		this.newBoss = newBoss;
 	}
 
-	public synchronized boolean isNewBoss2() {
-		return newBoss;
-	}
+	//public synchronized boolean isNewBoss2() {
+	//	return newBoss;
+	//}
 
-	public synchronized void setNewBoss2(boolean newBoss) {
-		this.newBoss = newBoss;
-	}
+	//public synchronized void setNewBoss2(boolean newBoss) {
+	//	this.newBoss = newBoss;
+	//}
 	
 	/**
 	 * Indicates if a new asteroid should be created/drawn.

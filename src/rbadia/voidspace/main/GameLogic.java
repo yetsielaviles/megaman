@@ -121,7 +121,7 @@ public class GameLogic {
 		//        newPlatform(gameScreen/*, 1*/);
 		//        newPlatform1(gameScreen);
 		newBoss(gameScreen);
-		newBoss2(gameScreen);
+		//newBoss2(gameScreen);
 		newAsteroid(gameScreen);
 		newAsteroid2(gameScreen);
 		newBigAsteroid(gameScreen);
@@ -281,15 +281,15 @@ public class GameLogic {
 	 * @param bulletBoss2 the bullet to move
 	 * @return if the bullet should be removed from screen
 	 */
-	public boolean moveBulletBoss2(BulletBoss2 bulletBoss2){
-		if(bulletBoss2.getY() - bulletBoss2.getSpeed() >= 0){
-			bulletBoss2.translate(0, bulletBoss2.getSpeed());
-			return false;
-		}
-		else{
-			return true;
-		}
-	}
+//	public boolean moveBulletBoss2(BulletBoss2 bulletBoss2){
+//		if(bulletBoss2.getY() - bulletBoss2.getSpeed() >= 0){
+//			bulletBoss2.translate(0, bulletBoss2.getSpeed());
+//			return false;
+//		}
+//		else{
+//			return true;
+//		}
+//	}
 
 	/** Move a "Power Shot" bullet once fired from the ship.
 	 * @param bulletBoss2 the bullet to move
@@ -343,10 +343,10 @@ public class GameLogic {
 	/**
 	 * Create the second boss.
 	 */
-	public Boss newBoss2(GameScreen screen){
-		this.boss2 = new Boss(screen);
-		return boss2;
-	}
+//	public Boss newBoss2(GameScreen screen){
+//		this.boss2 = new Boss(screen);
+//		return boss2;
+//	}
 
 	/**
 	 * Create a new asteroid.
@@ -392,9 +392,9 @@ public class GameLogic {
 		return boss;
 	}
 
-	public Boss getBoss2() {
-		return boss2;
-	}
+	//public Boss getBoss2() {
+		//return boss2;
+	//}
 
 	/**
 	 * Returns the asteroid.
@@ -432,9 +432,9 @@ public class GameLogic {
 	 * Returns the list of the second boss's bullets.
 	 * @return the list of the second boss's bullets
 	 */
-	public List<BulletBoss2> getBulletBoss2() {
-		return bulletsBoss2;
-	}
+	//public List<BulletBoss2> getBulletBoss2() {
+	//	return bulletsBoss2;
+	//}
 
 	/**
 	 * Returns the list of "Power Shot" bullets.

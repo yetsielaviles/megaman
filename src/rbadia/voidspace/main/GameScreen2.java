@@ -36,8 +36,9 @@ public class GameScreen2 extends BaseScreen {
 	}
 
 	@Override
-	protected void drawYouWin() {
+	protected void drawLevelPassed() {
 		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -123,6 +124,12 @@ public class GameScreen2 extends BaseScreen {
 	protected boolean Fall() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected void drawYouWin() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
