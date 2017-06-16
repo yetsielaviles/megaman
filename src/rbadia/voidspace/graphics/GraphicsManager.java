@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import rbadia.voidspace.model.Asteroid;
+import rbadia.voidspace.model.BigAsteroid;
 //import rbadia.voidspace.model.BigAsteroid;
 import rbadia.voidspace.model.BigBullet;
 //import rbadia.voidspace.model.Boss;
@@ -35,7 +36,7 @@ public class GraphicsManager {
 	private BufferedImage megaManExplosionImg;
 	//	private BufferedImage bossImg;
 	//	private BufferedImage bossImg2;
-	//	private BufferedImage bigAsteroidImg;
+	private BufferedImage bigAsteroidImg;
 	private BufferedImage bigAsteroidExplosionImg;
 
 	/**
@@ -56,8 +57,8 @@ public class GraphicsManager {
 			//this.megaManExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaManExplosion.png"));
 			this.bulletImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bullet.png"));
 			this.bigBulletImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bigBullet.png"));
-			//			this.bigAsteroidImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigAsteroid.png"));
-			//			this.bigAsteroidExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bigAsteroidExplosion.png"));
+			this.bigAsteroidImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigAsteroid.png"));
+			this.bigAsteroidExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bigAsteroidExplosion.png"));
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "The graphic files are either corrupt or missing.",
@@ -126,6 +127,9 @@ public class GraphicsManager {
 	public void drawAsteroid(Asteroid asteroid, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(asteroidImg, asteroid.x, asteroid.y, observer);
 	}
+	
+	public void drawbigAsteroid(BigAsteroid bigAsteroid, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(bigAsteroidImg, bigAsteroid.x, bigAsteroid.y, observer);}
 
 	/**
 	 * Draws a ship explosion image to the specified graphics canvas.
