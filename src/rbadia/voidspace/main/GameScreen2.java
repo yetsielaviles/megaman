@@ -35,13 +35,7 @@ public class GameScreen2 extends BaseScreen {
 		shipsValueLabel.setForeground(new Color(128, 0, 0));
 	}
 
-	@Override
-	protected void drawLevelPassed() {
-		// TODO Auto-generated method stub
-		
-		
-	}
-
+	
 	@Override
 	protected void drawGetReady() {
 		// TODO Auto-generated method stub

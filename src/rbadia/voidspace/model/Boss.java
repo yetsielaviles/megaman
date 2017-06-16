@@ -18,6 +18,7 @@ public class Boss extends Rectangle {
 	private int bossHeight = 83;
 	private int bossWidth2 = 110;
 	private int bossHeight2 = 100;
+	
 	private int speed3 = DEFAULT_SPEED3;
 	
 	/**
@@ -61,7 +62,6 @@ public class Boss extends Rectangle {
 	public int getBossHeight() {
 		return bossHeight;
 	}
-	
 	/**
 	 * Returns the current ship speed
 	 * @return the current ship speed
@@ -84,6 +84,10 @@ public class Boss extends Rectangle {
 	 */
 	public int getDefaultSpeed(){
 		return DEFAULT_SPEED3;
+	
 	}
+	
+	
+	
 	
 }
