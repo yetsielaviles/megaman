@@ -71,9 +71,9 @@ public class GameScreen extends BaseScreen{
 	private int level=1;
 	private int damage=0;
 	//	private int scroll=0;
-	//	private int bossHealth=0;
+	private int bossHealth=0;
 	//	private int delay=0;
-
+	private int deltaX = 2;
 
 	/**
 	 * This method initializes 
@@ -206,12 +206,18 @@ public class GameScreen extends BaseScreen{
 //						graphicsMan.drawPlatform2(numPlatforms[i], g2d, this, i);
 //					}	
 				//}
-				
-		if(status.getLevel()==5){
+			
+		if(status.getLevel()==1){
 			graphicsMan.drawBoss(boss, g2d, this);
+			boss.setLocation(rand.nextInt(this.getWidth()), 5);
+			if( this.leftCollision(boss) || this.rightCollision(boss)) 
+				deltaX = deltaX * -1;
+			boss.translate(deltaX , 0);
 			
 			
 		}
+		
+	
 
 		//draw MegaMan
 		if(!status.isNewMegaMan()){
@@ -275,7 +281,8 @@ public class GameScreen extends BaseScreen{
 			}	
 			
 		}
-
+			
+	
 		else{ 
 			long currentTime = System.currentTimeMillis();
 			if((currentTime - lastAsteroidTime) > NEW_ASTEROID_DELAY){
@@ -292,7 +299,7 @@ public class GameScreen extends BaseScreen{
 				bigAsteroid.setLocation(this.getWidth() - bigAsteroid.getBigAsteroidWidth(),
 						rand.nextInt(this.getHeight() - bigAsteroid.getBigAsteroidHeight() - 32));
 			}
-			
+		
 			else{
 				// draw explosion
 				graphicsMan.drawAsteroidExplosion(asteroidExplosion, g2d, this);
@@ -325,101 +332,106 @@ public class GameScreen extends BaseScreen{
 		}
 
 		// check bullet-asteroid collisions
-		for(int i=0; i<bullets.size(); i++){
-			Bullet bullet = bullets.get(i);
-			if(asteroid.intersects(bullet)){
-				// increase asteroids destroyed count
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
+				for(int i=0; i<bullets.size(); i++){
+					Bullet bullet = bullets.get(i);
+					if(asteroid.intersects(bullet)){
+						// increase asteroids destroyed count
+						status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
 
-				removeAsteroid(asteroid);
+						removeAsteroid(asteroid);
+						
+						if(boom != 5 && boom != 15){
+							boom=boom + 1;
+						}
+						damage=0;
+						// remove bullet
+						bullets.remove(i);
+						break;
+					}
+					if(asteroid2.intersects(bullet)){
+						// increase asteroids destroyed count
+						status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
+
+						removeAsteroid(asteroid2);
+
+						if(boom != 5 && boom != 15){
+							boom=boom + 1;
+						}
+						damage=0;
+						// remove bullet
+						bullets.remove(i);
+						break;
+					}
+					if(bigAsteroid.intersects(bullet)){
+						// increase asteroids destroyed count
+						status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
+
+						removeBigAsteroid(bigAsteroid);
+
+						if(boom != 5 && boom != 15){
+							boom=boom + 1;
+						}
+						damage=0;
+						// remove bullet
+						bullets.remove(i);
+						break;
+					}
+					
+					if(boss.intersects(bullet)){
+						damage=0;
+						removeBoss(boss);
+						bullets.remove(i);
+						drawYouWin();
+						doGameOver(); 
+						doNewGame();
+						
+						break;
+					}
+				}
+
+				// check big bullet-asteroid collisions
+				for(int i=0; i<bigBullets.size(); i++){
+					BigBullet bigBullet = bigBullets.get(i);
+					if(asteroid.intersects(bigBullet)){
+						// increase asteroids destroyed count
+						status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
+
+						removeAsteroid(asteroid);
+						
+						if(boom != 5 && boom != 15){
+							boom=boom + 1;
+						}
+						damage=0;
+					}
+					if(asteroid2.intersects(bigBullet)){
+						// increase asteroids destroyed count
+						status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
+
+						removeAsteroid(asteroid2);
+
+						if(boom != 5 && boom != 15){
+							boom=boom + 1;
+						}
+						damage=0;
+					}
+					if(bigAsteroid.intersects(bigBullet)){
+						// increase asteroids destroyed count
+						status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
+
+						removeBigAsteroid(bigAsteroid);
+
+						if(boom != 5 && boom != 15){
+							boom=boom + 1;
+						}
+						damage=0;
+					}
+					if(boss.intersects(bigBullet)){
+						damage=0;
+						removeBoss(boss);
+						bullets.remove(i);
+						drawYouWin();
 				
-				if(boom != 5 && boom != 15){
-					boom=boom + 1;
-				}
-				damage=0;
-				// remove bullet
-				bullets.remove(i);
-				break;
-			}
-			if(asteroid2.intersects(bullet)){
-				// increase asteroids destroyed count
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
-
-				removeAsteroid(asteroid2);
-
-				if(boom != 5 && boom != 15){
-					boom=boom + 1;
-				}
-				damage=0;
-				// remove bullet
-				bullets.remove(i);
-				break;
-			}
-			if(bigAsteroid.intersects(bullet)){
-				// increase asteroids destroyed count
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
-
-				removeBigAsteroid(bigAsteroid);
-
-				if(boom != 5 && boom != 15){
-					boom=boom + 1;
-				}
-				damage=0;
-				// remove bullet
-				bullets.remove(i);
-				break;
-			}
-			
-			if(boss.intersects(bullet)){
-				damage=0;
-				removeBoss(boss);
-				bullets.remove(i);
-				break;
-			}
-		}
-
-		// check big bullet-asteroid collisions
-		for(int i=0; i<bigBullets.size(); i++){
-			BigBullet bigBullet = bigBullets.get(i);
-			if(asteroid.intersects(bigBullet)){
-				// increase asteroids destroyed count
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
-
-				removeAsteroid(asteroid);
-				
-				if(boom != 5 && boom != 15){
-					boom=boom + 1;
-				}
-				damage=0;
-			}
-			if(asteroid2.intersects(bigBullet)){
-				// increase asteroids destroyed count
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 250);
-
-				removeAsteroid(asteroid2);
-
-				if(boom != 5 && boom != 15){
-					boom=boom + 1;
-				}
-				damage=0;
-			}
-			if(bigAsteroid.intersects(bigBullet)){
-				// increase asteroids destroyed count
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
-
-				removeBigAsteroid(bigAsteroid);
-
-				if(boom != 5 && boom != 15){
-					boom=boom + 1;
-				}
-				damage=0;
-			}
-			if(boss.intersects(bigBullet)){
-				damage=0;
-				removeBoss(boss);
-				bullets.remove(i);
-				break;
-		}
+					break;}}
 
 //		//MM-Asteroid collision
 		if(asteroid.intersects(megaMan)){
@@ -432,7 +444,7 @@ public class GameScreen extends BaseScreen{
 		
 			}
 		}
-		}		
+				
 		//Asteroid-Floor collision
 		for(int i=0; i<9; i++){
 			if(asteroid.intersects(floor[i])){
@@ -521,9 +533,9 @@ public class GameScreen extends BaseScreen{
 
 		boom=0;	//Change value in order for the next level to start
 
-		//		boomReset();
-		//		healthReset();
-		//		delayReset();
+		//	boomReset();
+			//healthReset();
+			//delayReset();
 	}
 
 	/**
@@ -758,22 +770,20 @@ public class GameScreen extends BaseScreen{
 		return true;
 	}
 
-	public void restructure(){	//Add new level here
-		{
+	public void restructure(){								//Add new level here
+		 
 		Platform[] platform = gameLogic.getNumPlatforms();
 		for(int i=0; i<8; i++){
-			if(i<4)	platform[i].setLocation(rand.nextInt(getWidth()+i*50+200), rand.nextInt(getHeight()/2 + 140 - i*40));
-			if(i==4) platform[i].setLocation(rand.nextInt(getWidth() + 50 - i*50), rand.nextInt(getHeight()/2+ 140 - 3 *40));
+			if(i<4)	platform[i].setLocation(50+ i*50, rand.nextInt(getHeight()/2 + 140 - i*40));
+			if(i==4) platform[i].setLocation(50 +i*50, rand.nextInt(getHeight()/2 + 140 - 3*40));
 			if(i>4){	
 				int n=4;
-				platform[i].setLocation(rand.nextInt(getWidth()+50 + i*50 ), rand.nextInt(getHeight()/2 + 20 + (i-n)*40 ));
+				platform[i].setLocation(50 + i*50, rand.nextInt(getHeight()/2 + 20 + (i-n)*40) );
 				n=n+2;
 			}
-			}
-		
 		}
 		status.setLevel(status.getLevel() + 1);
-			}
+	}
 	
 	public void removeAsteroid(Asteroid asteroid){
 		// "remove" asteroid
@@ -821,20 +831,18 @@ public class GameScreen extends BaseScreen{
 
 		// play asteroid explosion sound
 		soundMan.playAsteroidExplosionSound();
+		
+	}
+	public boolean rightCollision (Boss boss)
+	{
+		return boss.getX() == this.getWidth()-70;
+	}
+	public boolean leftCollision (Boss boss)
+	{
+		return boss.getX() == 0;
 	}
 	
-//	public void removeBoss(Boss	boss){
-//		// "remove" big asteroid
-//		bigAsteroidExplosion = new Rectangle(
-//				boss.x,
-//				boss.y,
-//				boss.width,
-//				boss.height);
-//		graphicsMan.drawBossExplosion(bigAsteroidExplosion, g2d, this);
-		//bigAsteroid.setLocation(-bigAsteroid.width, -bigAsteroid.height);
-		//status.setNewBigAsteroid(true);
-		//lastBigAsteroidTime = System.currentTimeMillis();
-	//}
+
 	
 	public void removeBoss(Boss boss){
 		// "remove" boss
@@ -850,5 +858,6 @@ public class GameScreen extends BaseScreen{
 
 		// play asteroid explosion sound
 		soundMan.playAsteroidExplosionSound();
+	
 	}
 }
