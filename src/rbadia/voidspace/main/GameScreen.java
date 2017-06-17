@@ -9,6 +9,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +21,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -151,12 +154,12 @@ public class GameScreen extends BaseScreen{
 			this.bigFont = originalFont;
 		}
 
-		// erase screen
-		g2d.setPaint(Color.BLACK);
-		g2d.fillRect(0, 0, getSize().width, getSize().height);
-
-		// draw 50 random stars
-		drawStars(50);
+		
+			 ImageIcon background = new ImageIcon("images//image.png");
+			 g2d.drawImage(background.getImage(),0,0, null);
+			
+			
+		
 
 		// if the game is starting, draw "Get Ready" message
 		if(status.isGameStarting()){
@@ -294,7 +297,7 @@ public class GameScreen extends BaseScreen{
 			else if (boom <= 5){
 				asteroid.setLocation(this.getWidth() - asteroid.getAsteroidWidth(),
 						rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));
-				asteroid2.setLocation(1/2, rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));				
+				asteroid2.setLocation(0, rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));				
 				bigAsteroid.setLocation(this.getWidth() - bigAsteroid.getBigAsteroidWidth(),
 						rand.nextInt(this.getHeight() - bigAsteroid.getBigAsteroidHeight() - 64));	
 			}	
