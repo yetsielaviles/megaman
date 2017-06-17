@@ -234,27 +234,39 @@ public class GameScreen extends BaseScreen{
 			//LEVEL 1
 			if((asteroid.getX() + asteroid.getAsteroidWidth() >  0) && (boom <= 5 || boom == 15) ){
 				asteroid.translate(-asteroid.getSpeed(), 0);
-				graphicsMan.drawAsteroid(asteroid, g2d, this);
-				
+				graphicsMan.drawAsteroid(asteroid, g2d, this);}
+			else if(boom<=5){
+				asteroid.setLocation(this.getWidth() - asteroid.getAsteroidWidth(),
+						rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));
+			}
 				if((asteroid2.getX() + asteroid2.getAsteroidWidth() >  0) && (boom <= 5 || boom == 15)) {
-					asteroid2.translate(asteroid2.getSpeed(), 0);
-					graphicsMan.drawAsteroid(asteroid2, g2d, this);
+					asteroid2.translate(-asteroid2.getSpeed(), 0);
+					graphicsMan.drawAsteroid(asteroid2, g2d, this);}
+				else if(boom<=5){
+					asteroid2.setLocation(this.getWidth() - asteroid2.getAsteroidWidth(),
+							rand.nextInt(this.getHeight() - asteroid2.getAsteroidHeight() - 32));
+				}
 					
 					if((bigAsteroid.getX() + bigAsteroid.getBigAsteroidWidth() >  0) && (boom <= 5 || boom == 15)) {
 						bigAsteroid.translate(-bigAsteroid.getSpeed2(), 0);
 						graphicsMan.drawbigAsteroid(bigAsteroid, g2d, this);
 					}
+					else if(boom<=5){
+						bigAsteroid.setLocation(this.getWidth() - bigAsteroid.getBigAsteroidWidth(),
+								rand.nextInt(this.getHeight() - bigAsteroid.getBigAsteroidHeight() - 64));	
+					}
 				}
 				
-			}
-			else if (boom <= 5){
-				asteroid.setLocation(this.getWidth() - asteroid.getAsteroidWidth(),
-						rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));
-				asteroid2.setLocation(0, rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));				
-				bigAsteroid.setLocation(this.getWidth() - bigAsteroid.getBigAsteroidWidth(),
-						rand.nextInt(this.getHeight() - bigAsteroid.getBigAsteroidHeight() - 64));		
-			}	
-		}
+			//}
+//			else if (boom <= 5){
+//				asteroid.setLocation(this.getWidth() - asteroid.getAsteroidWidth(),
+//						rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));
+//				asteroid2.setLocation(this.getWidth() - asteroid.getAsteroidWidth(),
+//						 rand.nextInt(this.getHeight() - asteroid.getAsteroidHeight() - 32));				
+//				bigAsteroid.setLocation(this.getWidth() - bigAsteroid.getBigAsteroidWidth(),
+//						rand.nextInt(this.getHeight() - bigAsteroid.getBigAsteroidHeight() - 64));		
+//			}	
+//		}
 
 		else if(!status.isNewAsteroid() && boom > 5){
 			// draw the asteroid until it reaches the bottom of the screen
