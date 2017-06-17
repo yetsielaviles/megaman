@@ -201,11 +201,11 @@ public class GameScreen extends BaseScreen{
 						}
 		}
 		//		//draw Platform LV. 2
-				else if(level==2){
-					for(int i=0; i<8; i++){
-						graphicsMan.drawPlatform2(numPlatforms[i], g2d, this, i);
-					}	
-				}
+//				else if(level==2){
+//					for(int i=0; i<8; i++){
+//						graphicsMan.drawPlatform2(numPlatforms[i], g2d, this, i);
+//					}	
+				//}
 				
 		if(status.getLevel()==1){
 			graphicsMan.drawBoss(boss, g2d, this);
@@ -260,6 +260,7 @@ public class GameScreen extends BaseScreen{
 			// draw the asteroid until it reaches the bottom of the screen
 			//LEVEL 2
 			level++;
+			restructure();
 			if((asteroid.getX() + asteroid.getAsteroidWidth() >  0) && (boom <= 5 || boom ==15)){
 				asteroid.translate(-asteroid.getSpeed(), asteroid.getSpeed()/2);
 				graphicsMan.drawAsteroid(asteroid, g2d, this);	
@@ -753,20 +754,23 @@ public class GameScreen extends BaseScreen{
 		return true;
 	}
 
-	public void restructure(){								//Add new level here
+	public void restructure(){	//Add new level here
+		if(level==2){
 		Platform[] platform = gameLogic.getNumPlatforms();
 		for(int i=0; i<8; i++){
-			if(i<4)	platform[i].setLocation(50+ i*50, getHeight()/2 + 140 - i*40);
+			if(i<4)	platform[i].setLocation(200+ i*50, getHeight()/2 + 140 - i*40);
 			if(i==4) platform[i].setLocation(50 +i*50, getHeight()/2 + 140 - 3*40);
 			if(i>4){	
 				int n=4;
 				platform[i].setLocation(50 + i*50, getHeight()/2 + 20 + (i-n)*40 );
 				n=n+2;
 			}
+			}
+		
 		}
 		status.setLevel(status.getLevel() + 1);
-	}
-
+			}
+	
 	public void removeAsteroid(Asteroid asteroid){
 		// "remove" asteroid
 		asteroidExplosion = new Rectangle(

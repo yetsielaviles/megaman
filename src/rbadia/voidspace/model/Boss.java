@@ -1,4 +1,4 @@
-package rbadia.voidspace.model;
+ package rbadia.voidspace.model;
 
 import java.awt.Rectangle;
 
