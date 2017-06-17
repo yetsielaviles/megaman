@@ -112,6 +112,12 @@ public class GameScreen2 extends BaseScreen {
 	protected boolean Fire2() {
 		// TODO Auto-generated method stub
 		return false;
+		
+	}
+	protected boolean FireBoss() {
+		// TODO Auto-generated method stub
+		return false;
+		
 	}
 
 	@Override
@@ -125,5 +131,8 @@ public class GameScreen2 extends BaseScreen {
 		// TODO Auto-generated method stub
 		
 	}
-
+	protected void drawLvlPassed() {
+		// TODO Auto-generated method stub
+		
+	}
 }

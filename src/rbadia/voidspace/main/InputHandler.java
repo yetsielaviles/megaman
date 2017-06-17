@@ -36,7 +36,20 @@ public class InputHandler implements KeyListener{
 
 	private long lastBulletTime;
 	private long lastExchangeTime;
+	
+	
+
+	
 	private long lastBigBulletTime;
+	private long lastBossBulletTime;
+	public long getLastBossBulletTime() {
+		return lastBossBulletTime;
+	}
+
+	public void setLastBossBulletTime(long lastBossBulletTime) {
+		this.lastBossBulletTime = lastBossBulletTime;
+	}
+
 	private int stack= 0;
 	private int mute = 0;
 

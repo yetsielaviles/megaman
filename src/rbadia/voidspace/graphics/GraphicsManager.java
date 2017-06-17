@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -14,6 +15,7 @@ import rbadia.voidspace.model.BigBullet;
 import rbadia.voidspace.model.Boss;
 //import rbadia.voidspace.model.Boss;
 import rbadia.voidspace.model.Bullet;
+import rbadia.voidspace.model.BulletBoss;
 import rbadia.voidspace.model.Floor;
 //import rbadia.voidspace.model.BulletBoss;
 //import rbadia.voidspace.model.BulletBoss2;
@@ -38,6 +40,7 @@ public class GraphicsManager {
 	//	private BufferedImage bossImg2;
 	private BufferedImage bigAsteroidImg;
 	private BufferedImage bigAsteroidExplosionImg;
+	private BufferedImage bulletBossImg;
 
 	/**
 	 * Creates a new graphics manager and loads the game images.
@@ -59,7 +62,7 @@ public class GraphicsManager {
 			this.bigBulletImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bigBullet.png"));
 			this.bigAsteroidImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigAsteroid.png"));
 			this.bigAsteroidExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bigAsteroidExplosion.png"));
-
+			this.bulletBossImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bigBullet.png"));
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "The graphic files are either corrupt or missing.",
 					"VoidSpace - Fatal Error", JOptionPane.ERROR_MESSAGE);
@@ -118,6 +121,9 @@ public class GraphicsManager {
 	 */
 	public void drawBigBullet(BigBullet bigBullet, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(bigBulletImg, bigBullet.x, bigBullet.y, observer);
+	}
+	public void drawBulletBoss(BulletBoss bulletsBoss, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(bulletBossImg, bulletsBoss.x, bulletsBoss.y, observer);
 	}
 
 	/**

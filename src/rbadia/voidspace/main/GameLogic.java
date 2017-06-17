@@ -33,6 +33,7 @@ import rbadia.voidspace.sounds.SoundManager;
  * Handles general game logic and status.
  */
 public class GameLogic {
+	
 	private GameScreen gameScreen;
 	private GameScreen2 gameScreen2;
 	private GameStatus status;
@@ -70,7 +71,7 @@ public class GameLogic {
 		// init some variables
 		bullets = new ArrayList<Bullet>();
 		bulletsBoss = new ArrayList<BulletBoss>();
-		bulletsBoss2 = new ArrayList<BulletBoss2>();
+		//bulletsBoss2 = new ArrayList<BulletBoss2>();
 		bigBullets = new ArrayList<BigBullet>();
 	}
 
@@ -99,7 +100,7 @@ public class GameLogic {
 		// init game variables
 		bullets = new ArrayList<Bullet>();
 		bulletsBoss = new ArrayList<BulletBoss>();
-		bulletsBoss2 = new ArrayList<BulletBoss2>();
+		//bulletsBoss2 = new ArrayList<BulletBoss2>();
 		bigBullets = new ArrayList<BigBullet>();
 		//numPlatforms = new Platform[5];
 
@@ -246,7 +247,10 @@ public class GameLogic {
 		bigBullets.add(bigBullet);
 		soundMan.playBulletSound();
 	}
-
+	public void fireBossBullet(){
+		BulletBoss bulletBoss = new BulletBoss(boss);
+		bulletsBoss.add(bulletBoss);
+		soundMan.playBulletSound();}
 	/**
 	 * Move a bullet once fired from the ship.
 	 * @param bullet the bullet to move
@@ -269,7 +273,7 @@ public class GameLogic {
 	 */
 	public boolean moveBulletBoss(BulletBoss bulletBoss){
 		if(bulletBoss.getY() - bulletBoss.getSpeed() >= 0){
-			bulletBoss.translate(0, bulletBoss.getSpeed());
+			bulletBoss.translate(bulletBoss.getSpeed(), 0);
 			return false;
 		}
 		else{

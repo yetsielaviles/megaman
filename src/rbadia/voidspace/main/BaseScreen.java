@@ -30,7 +30,7 @@ public abstract class BaseScreen extends JPanel {
 	//	protected long lastBigAsteroidTime;
 
 	protected Rectangle asteroidExplosion;
-	//	protected Rectangle bigAsteroidExplosion;
+	protected Rectangle bigAsteroidExplosion;
 	//	protected Rectangle shipExplosion;
 	//	protected Rectangle bossExplosion;
 
@@ -54,7 +54,7 @@ public abstract class BaseScreen extends JPanel {
 	protected int boom=0;
 	protected int damage=0;
 	//	protected int scroll=0;
-	//	protected int bossHealth=0;
+	protected int bossHealth=50;
 	//	protected int delay=0;
 	
 	protected abstract void initialize();
@@ -66,6 +66,7 @@ public abstract class BaseScreen extends JPanel {
 	
 	protected abstract void drawGetReady();
 	protected abstract void drawYouWin();
+	protected abstract void drawLvlPassed();
 	
 	protected abstract void drawStars(int numberOfStars);
 	
@@ -91,6 +92,7 @@ public abstract class BaseScreen extends JPanel {
 	
 	protected abstract boolean Fire2();
 	
+	protected abstract boolean FireBoss();
 	protected abstract boolean Fall();	
 
 }
